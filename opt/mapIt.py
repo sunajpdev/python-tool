@@ -13,7 +13,7 @@ else:
   # クリップポードから住所を取得する
   address = pyperclip.paste()
 
-base_url = 'https://www.google.com/maps/place/'
+base_url = 'https://www.google.com/maps/search/'
 # 日本語の可能性があるため address エンコードする
 url = base_url + urllib.parse.quote(address)
 webbrowser.open(url)
