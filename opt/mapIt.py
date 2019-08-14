@@ -1,5 +1,4 @@
-# coding:utf-8
-#! python3
+#!/usr/bin/env python3
 # mapIt.py - コマンドラインやクリップポードに指定した住所の地図を開く
 
 import webbrowser
@@ -14,7 +13,7 @@ import urllib.parse
 # サイトごとにURLとパラメータをセットした文字列を返す
 def createUrl(site, argv):
   # 検索パラメータ取得
-  param = paramArgv(argv)
+  param = argvEncString(argv)
 
   # 第一引数でサイトのURLを変更する
   if site == 'gmap':
@@ -25,6 +24,8 @@ def createUrl(site, argv):
     url = 'https://www.google.com/search?q=' + param
   elif site == 'gphoto':
     url = 'https://www.google.com/search?q=' + param + '&tbm=isch'
+  elif site == 'trans':
+    url = "https://translate.google.com/?hl=ja#view=home&op=translate&sl=auto&tl=en&text=" + param
   else:
     print('ERROR: Site Not Found')
     sys.exit()
@@ -41,7 +42,7 @@ def siteName(argv):
     return argv[1]
 
 # パラメータの第二パラメータ以降、ない場合はクリップボードから検索用文字列を返す
-def paramArgv(argv):
+def argvEncString(argv):
   if len(argv) > 2:
     # 第一引数をサイトパラメータとして取得
     site = argv[1]  
