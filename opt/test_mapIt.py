@@ -4,11 +4,16 @@ import pyperclip
 
 class TestMapIt(unittest.TestCase):
   def test_argv_enc_string(self):
-    # clipbordにコピー
-    pyperclip.copy('python')
     argv = ['mapIt.py', 'gmap', 'hogehoge']
     param = mapIt.argv_enc_string(argv)
     expected = "hogehoge"
+    self.assertEqual(expected, param)
+
+    # clipbordにコピー
+    pyperclip.copy('python')
+    argv = ['mapIt.py', 'gmap']
+    param = mapIt.argv_enc_string(argv)
+    expected = "python"
     self.assertEqual(expected, param)
 
   def test_sitename(self):
