@@ -11,9 +11,10 @@ import urllib.parse
 #   return 'https://transit.yahoo.co.jp/main/top?from=' + start +'&to=' + to
 
 # サイトごとにURLとパラメータをセットした文字列を返す
-def createUrl(site, argv):
+def create_url(argv):
+  site = sitename(argv)
   # 検索パラメータ取得
-  param = argvEncString(argv)
+  param = argv_enc_string(argv)
 
   # 第一引数でサイトのURLを変更する
   if site == 'gmap':
@@ -28,21 +29,21 @@ def createUrl(site, argv):
     url = "https://translate.google.com/?hl=ja#view=home&op=translate&sl=auto&tl=en&text=" + param
   else:
     print('ERROR: Site Not Found')
-    sys.exit()
-  
+    return False
+
   return url
 
-# パラメータより検索先サイトを返す。ない場合はエラーを出して終了
-def siteName(argv):
+# パラメータより検索先サイトを返す。ない場合はFalseを返す
+def sitename(argv):
   # 第一引数がない場合はエラー
   if len(argv) < 2:
     print("ERROR: パラメータ不足")
-    sys.exit()
+    return False
   else:
     return argv[1]
 
 # パラメータの第二パラメータ以降、ない場合はクリップボードから検索用文字列を返す
-def argvEncString(argv):
+def argv_enc_string(argv):
   if len(argv) > 2:
     # 第一引数をサイトパラメータとして取得
     site = argv[1]  
@@ -58,8 +59,9 @@ def argvEncString(argv):
 
 
 if __name__ == "__main__":
-  # 検索サイトを取得
-  site = siteName(sys.argv)
   # urlを生成
-  url = createUrl(site, sys.argv)
-  webbrowser.open(url)
+  url = create_url(sys.argv)
+  if url != False:
+    webbrowser.open(url)
+  else:
+    print('false')    
