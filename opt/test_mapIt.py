@@ -48,6 +48,22 @@ class TestMapIt(unittest.TestCase):
     url = mapIt.create_url(argv)
     self.assertEqual(expected,url)
 
+    # norkae
+    argv = ['mapIt.py', 'norikae', 'a', 'b']
+    expected = 'https://transit.yahoo.co.jp/main/top?from=' + argv[2] +'&to=' + argv[3]
+    url = mapIt.create_url(argv)
+    self.assertEqual(expected,url)
+
+    ## パラメータがない場合はFalse
+    argv = ['mapIt.py', 'norikae']
+    url = mapIt.create_url(argv)
+    self.assertEqual(False,url)
+
+    ## パラメータが１つしかない場合もFalse
+    argv = ['mapIt.py', 'norikae', 'a']
+    url = mapIt.create_url(argv)
+    self.assertEqual(False,url)
+
     # 引数不足
     argv = ['mapIt.py']
     url = mapIt.create_url(argv)
@@ -58,6 +74,32 @@ class TestMapIt(unittest.TestCase):
     pyperclip.copy('python')
     expected = "https://www.google.com/search?q=python"
     url = mapIt.create_url(argv)
+    self.assertEqual(expected, url)
+
+  # norikae
+  def test_create_url_norikae(self):
+    argv = ['mapIt.py', 'norikae', 'a', 'b']
+    expected = 'https://transit.yahoo.co.jp/main/top?from=' + argv[2] +'&to=' + argv[3]
+    url = mapIt.create_url_norikae(argv)
+    self.assertEqual(expected, url)
+
+    # 経由地がある場合
+    argv = ['mapIt.py', 'norikae', 'a', 'b', 'c']
+    expected = 'https://transit.yahoo.co.jp/main/top?from=' + argv[2] +'&to=' + argv[3] + '&via=' + argv[4]
+    url = mapIt.create_url_norikae(argv)
+    self.assertEqual(expected, url)
+
+
+  def test_create_url_norikae_vias(self):
+    argv = ['mapIt.py', 'norikae', 'a', 'b', 'c']
+    expected = "&via=c"
+    url = mapIt.create_url_norikae_vias(argv)
+    self.assertEqual(expected, url)
+
+    # 経由地２つ
+    argv = ['mapIt.py', 'norikae', 'a', 'b', 'c', 'd']
+    expected = "&via=c&via=d"
+    url = mapIt.create_url_norikae_vias(argv)
     self.assertEqual(expected, url)
 
 if __name__ == "__main__":

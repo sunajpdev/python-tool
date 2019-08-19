@@ -7,8 +7,29 @@ import pyperclip
 import urllib.parse
 
 # # 乗換案内 start: 開始駅 to:到着駅 
-# def norikae(start, to):
-#   return 'https://transit.yahoo.co.jp/main/top?from=' + start +'&to=' + to
+def create_url_norikae(argv):
+  # 開始駅、到着駅がない場合（引数が４つ以下）はエラー
+  if len(argv)>=4:
+    start = urllib.parse.quote(argv[2])
+    to = urllib.parse.quote(argv[3])
+
+    # 中継先がある場合は追加
+    vias = create_url_norikae_vias(argv)
+    
+    return 'https://transit.yahoo.co.jp/main/top?from=' + start +'&to=' + to + vias
+  else:
+    return False
+
+# 経由地を文字列で返す
+def create_url_norikae_vias(argv):
+  if len(argv) > 4:
+    # 配列の回数分ループ
+    vias = ''
+    for i in range(4,len(argv)):
+      vias += '&via=' + urllib.parse.quote(argv[i])
+    return vias
+  else:
+    return ""
 
 # サイトごとにURLとパラメータをセットした文字列を返す
 def create_url(argv):
@@ -27,6 +48,8 @@ def create_url(argv):
     url = 'https://www.google.com/search?q=' + param + '&tbm=isch'
   elif site == 'trans':
     url = "https://translate.google.com/?hl=ja#view=home&op=translate&sl=auto&tl=en&text=" + param
+  elif site == 'norikae':
+    url = create_url_norikae(argv)
   else:
     print('ERROR: Site Not Found')
     return False
