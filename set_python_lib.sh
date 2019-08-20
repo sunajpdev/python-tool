@@ -8,3 +8,4 @@ docker-compose exec python3  python -m pip install pyyaml
 docker-compose exec python3  python -m pip install xlsxwriter
 docker-compose exec python3  python -m pip install tornado
 docker-compose exec python3  python -m pip install pyperclip
+docker-compose exec python3  python -m pip install requests
