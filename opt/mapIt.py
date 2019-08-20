@@ -23,7 +23,7 @@ def create_url_norikae(argv):
 # 経由地を文字列で返す
 def create_url_norikae_vias(argv):
   if len(argv) > 4:
-    # 配列の回数分ループ
+    # 引数４以降の回数分ループ
     vias = ''
     for i in range(4,len(argv)):
       vias += '&via=' + urllib.parse.quote(argv[i])
