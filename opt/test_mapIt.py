@@ -50,7 +50,7 @@ class TestMapIt(unittest.TestCase):
 
     # norkae
     argv = ['mapIt.py', 'norikae', 'a', 'b']
-    expected = 'https://transit.yahoo.co.jp/main/top?from=' + argv[2] +'&to=' + argv[3]
+    expected = 'https://transit.yahoo.co.jp/search/result?flatlon=&from=' + argv[2] +'&to=' + argv[3]
     url = mapIt.create_url(argv)
     self.assertEqual(expected,url)
 
@@ -79,13 +79,13 @@ class TestMapIt(unittest.TestCase):
   # norikae
   def test_create_url_norikae(self):
     argv = ['mapIt.py', 'norikae', 'a', 'b']
-    expected = 'https://transit.yahoo.co.jp/main/top?from=' + argv[2] +'&to=' + argv[3]
+    expected = 'https://transit.yahoo.co.jp/search/result?flatlon=&from=' + argv[2] +'&to=' + argv[3]
     url = mapIt.create_url_norikae(argv)
     self.assertEqual(expected, url)
 
     # 経由地がある場合
     argv = ['mapIt.py', 'norikae', 'a', 'b', 'c']
-    expected = 'https://transit.yahoo.co.jp/main/top?from=' + argv[2] +'&to=' + argv[3] + '&via=' + argv[4]
+    expected = 'https://transit.yahoo.co.jp/search/result?flatlon=&from=' + argv[2] +'&to=' + argv[3] + '&via=' + argv[4]
     url = mapIt.create_url_norikae(argv)
     self.assertEqual(expected, url)
 
