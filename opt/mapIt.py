@@ -16,7 +16,7 @@ def create_url_norikae(argv):
     # 中継先がある場合は追加
     vias = create_url_norikae_vias(argv)
     
-    return 'https://transit.yahoo.co.jp/main/top?from=' + start +'&to=' + to + vias
+    return 'https://transit.yahoo.co.jp/search/result?flatlon=&from=' + start +'&to=' + to + vias
   else:
     return False
 
